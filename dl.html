@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving School Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .registered-names {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Driving School Registration</h1>
+
+    <div class="form-container">
+        <form id="registrationForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="classTiming">Preferred Class Timing:</label>
+            <select id="classTiming" name="classTiming" required>
+                <option value="">Select Class Timing</option>
+                <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
+                <option value="Afternoon (1 PM - 4 PM)">Afternoon (1 PM - 4 PM)</option>
+                <option value="Evening (5 PM - 8 PM)">Evening (5 PM - 8 PM)</option>
+            </select>
+
+            <label for="previousLicense">Do you have a previous driving license?</label>
+            <select id="previousLicense" name="previousLicense" required>
+                <option value="">Select Option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div class="registered-names">
+        <h2>Registered Names:</h2>
+        <ul id="namesList">
+            <!-- Registered names will be listed here -->
+        </ul>
+    </div>
+
+    <script>
+        // Array to store registered details
+        let registeredDetails = [];
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            // Get input values
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let classTiming = document.getElementById('classTiming').value;
+            let previousLicense = document.getElementById('previousLicense').value;
+
+            // Store user details in an object and push to the array
+            registeredDetails.push({
+                name: name,
+                email: email,
+                phone: phone,
+                classTiming: classTiming,
+                previousLicense: previousLicense
+            });
+
+            // Clear the form fields
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('classTiming').value = '';
+            document.getElementById('previousLicense').value = '';
+
+            // Update the list of registered names on the page
+            updateRegisteredNames();
+        });
+
+        // Function to update the list of registered names
+        function updateRegisteredNames() {
+            const namesList = document.getElementById('namesList');
+            namesList.innerHTML = ''; // Clear the current list
+
+            // Loop through the registered details and display them
+            registeredDetails.forEach(function(detail) {
+                let li = document.createElement('li');
+                li.textContent = `Name: ${detail.name}, Email: ${detail.email}, Phone: ${detail.phone}, Preferred Timing: ${detail.classTiming}, Previous License: ${detail.previousLicense}`;
+                namesList.appendChild(li);
+            });
+        }
+    </script>
+
+</body>
+</html>
